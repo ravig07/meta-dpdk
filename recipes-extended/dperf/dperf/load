@@ -1,0 +1,273 @@
+client.c:31:    struct config *cfg = ws->cfg;
+client.c:32:    uint64_t id = (uint64_t)(ws->id);
+client.c:54:    struct client_launch *cl = &ws->client_launch;
+client.c:55:    struct config *cfg = ws->cfg;
+csum.c:72:    mdata = &ws->tcp.data;
+csum.c:80:        sk->csum_tcp = csum_pseudo_ipv6(proto, &laddr, &faddr, L4_DATA_LEN(&ws->tcp));
+csum.c:81:        sk->csum_tcp_opt = csum_pseudo_ipv6(proto, &laddr, &faddr, L4_DATA_LEN(&ws->tcp_opt));
+csum.c:82:        sk->csum_tcp_data = csum_pseudo_ipv6(proto, &laddr, &faddr, L4_DATA_LEN(&ws->tcp_data));
+csum.c:84:        sk->csum_udp = csum_pseudo_ipv6(proto, &laddr, &faddr, L4_DATA_LEN(&ws->udp));
+csum.c:92:        sk->csum_tcp = csum_pseudo_ipv4(proto, lip, fip, L4_DATA_LEN(&ws->tcp));
+csum.c:93:        sk->csum_tcp_opt = csum_pseudo_ipv4(proto, lip, fip, L4_DATA_LEN(&ws->tcp_opt));
+csum.c:94:        sk->csum_tcp_data = csum_pseudo_ipv4(proto, lip, fip, L4_DATA_LEN(&ws->tcp_data));
+csum.c:96:        sk->csum_udp = csum_pseudo_ipv4(proto, lip, fip, L4_DATA_LEN(&ws->udp));
+csum.c:102:    uint8_t proto = ws->cfg->protocol;
+csum.c:104:    if (ws->ipv6) {
+csum.c:137:    if (ws->cfg->protocol == IPPROTO_TCP) {
+csum.c:138:        csum_inner_tcp_udp_ipv4(sk, &ws->tcp, &sk->csum_ip, &sk->csum_tcp);
+csum.c:139:        csum_inner_tcp_udp_ipv4(sk, &ws->tcp_opt, &sk->csum_ip_opt, &sk->csum_tcp_opt);
+csum.c:140:        csum_inner_tcp_udp_ipv4(sk, &ws->tcp_data, &sk->csum_ip_data, &sk->csum_tcp_data);
+csum.c:142:        csum_inner_tcp_udp_ipv4(sk, &ws->udp, &sk->csum_ip, &sk->csum_udp);
+csum.c:168:    if (ws->cfg->protocol == IPPROTO_TCP) {
+csum.c:169:        csum_inner_tcp_udp_tcp_ipv6(sk, &ws->tcp, &sk->csum_tcp);
+csum.c:170:        csum_inner_tcp_udp_tcp_ipv6(sk, &ws->tcp_opt, &sk->csum_tcp_opt);
+csum.c:171:        csum_inner_tcp_udp_tcp_ipv6(sk, &ws->tcp_data, &sk->csum_tcp_data);
+csum.c:173:        csum_inner_tcp_udp_tcp_ipv6(sk, &ws->udp, &sk->csum_udp);
+csum.c:179:    if (ws->ipv6) {
+csum.c:193:    if (ws->vxlan) {
+neigh.c:33:    if (ws->queue_id != 0) {
+neigh.c:41:    if (ws->port->ipv6) {
+neigh.c:53:    port = ws->port;
+neigh.c:69:            if (ws->vxlan) {
+neigh.c:71:            } else if (ws->ipv6) {
+bond.c:96:    port = ws->port;
+bond.c:105:        if (rte_eth_tx_burst(port_id, ws->queue_id, &m2, 1) != 1) {
+socket.c:84:    cfg = ws->cfg;
+socket.c:86:    sk->keepalive = ws->cfg->keepalive;
+socket.c:88:    if (ws->server) {
+socket.c:172:    st = &ws->socket_table;
+socket.c:200:    st = &ws->socket_table;
+socket.c:215:    if (ws->cfg->rss == RSS_L3) {
+socket.c:217:    } else if (ws->cfg->rss == RSS_L3L4) {
+socket.c:219:    }  else if (ws->cfg->rss == RSS_AUTO) {
+socket.c:228:    struct config *cfg = ws->cfg;
+socket.c:229:    struct netif_port *port = ws->port;
+socket.c:230:    struct socket_table *st = &ws->socket_table;
+socket.c:232:    st->server_ip = ip_range_get(&port->server_ip_range, ws->queue_id);
+socket.c:245:            printf("Error: worker %d has no client address, please increase the number of client address\n", ws->id);
+work_space.c:52:            if ((ws == NULL) || (!ws->start)) {
+work_space.c:63:    int num = ws->cfg->cpu_num;
+work_space.c:78:    struct config *cfg = ws->cfg;
+work_space.c:82:    port = config_port_get(cfg, ws->id, &queue_id);
+work_space.c:83:    ws->queue_id = queue_id;
+work_space.c:84:    ws->port = port;
+work_space.c:85:    ws->port_id = port->id;
+work_space.c:88:        ws->vxlan = cfg->vxlan;
+work_space.c:90:        ws->vtep_ip = ip_range_get(&vxlan->vtep_local, ws->queue_id);
+work_space.c:91:        ws->vni = VXLAN_HTON(vxlan->vni);
+work_space.c:94:    if (ws->port->kni) {
+work_space.c:95:        ws->kni = true;
+work_space.c:105:    if (ws->cfg->server) {
+work_space.c:106:        sprintf(name, "%s/dperf-server-%d.log", LOG_DIR, ws->id);
+work_space.c:108:        sprintf(name, "%s/dperf-client-%d.log", LOG_DIR, ws->id);
+work_space.c:117:    ws->log = fp;
+work_space.c:124:    if (ws && ws->log) {
+work_space.c:125:        fclose(ws->log);
+work_space.c:126:        ws->log = NULL;
+work_space.c:135:    cpu_num = ws->cfg->cpu_num;
+work_space.c:139:    usleep(ws->id * us);
+work_space.c:142:    tick_time_init(&ws->time);
+work_space.c:154:        ret = ip_list_split(&cfg->dip_list, &ws->dip_list, ws->id, cfg->cpu_num);
+work_space.c:158:        ws->change_dip = 1;
+work_space.c:176:        ws->socket_table.socket_pool.num = socket_num;
+work_space.c:195:    ws->server = cfg->server;
+work_space.c:196:    ws->vlan_id = cfg->vlan_id;
+work_space.c:197:    ws->id = id;
+work_space.c:198:    ws->ipv6 = cfg->af == AF_INET6;
+work_space.c:199:    ws->http = cfg->http;
+work_space.c:200:    ws->flood = cfg->flood;
+work_space.c:201:    ws->cfg = cfg;
+work_space.c:202:    ws->tos = cfg->tos;
+work_space.c:203:    ws->tx_queue.tx_burst = cfg->tx_burst;
+work_space.c:227:    cpuload_init(&ws->load);
+work_space.c:258:    port = ws->port;
+work_space.c:264:    if (ws->vxlan) {
+work_space.c:269:    if (!ws->ipv6) {
+work_space.c:282:    port = ws->port;
+work_space.c:286:    if (ws->port->ipv6) {
+work_space.c:292:    if (ws->ipv6) {
+work_space.c:304:    port = ws->port;
+work_space.c:308:        if ((ws == NULL) || (ws->port != port)) {
+work_space.c:312:        mbuf_cache_set_dmac(&ws->tcp, ea);
+work_space.c:313:        mbuf_cache_set_dmac(&ws->tcp_opt, ea);
+work_space.c:314:        mbuf_cache_set_dmac(&ws->tcp_data, ea);
+work_space.c:315:        mbuf_cache_set_dmac(&ws->udp, ea);
+work_space.c:325:    p = port_get_mbuf_pool(ws->port, ws->queue_id);
+work_space.c:341:            ws->client_launch.launch_num = 0;
+work_space.c:342:            ws->stop = true;
+work_space.c:355:            ws->exit = true;
+work_space.c:377:        if (interval <= ws->client_launch.launch_interval_default) {
+work_space.c:378:            interval = ws->client_launch.launch_interval_default;
+work_space.c:381:        ws->client_launch.launch_interval = interval;
+work_space.c:393:    st = &ws->socket_table;
+work_space.c:394:    st->rss = ws->cfg->rss;
+work_space.c:395:    st->rss_id = ws->queue_id;
+work_space.c:396:    st->rss_num = ws->port->queue_num;
+work_space.c:400:        if ((ws2 == NULL) || (ws2->port != ws->port)) {
+arp.c:51:    if (port_is_bond4(ws->port)) {
+arp.c:74:    struct netif_port *port = ws->port;
+arp.c:93:    port = ws->port;
+arp.c:98:    if (ws->vxlan) {
+arp.c:117:    struct netif_port *port = ws->port;
+arp.c:131:    struct netif_port *port = ws->port;
+arp.c:163:    if (ws->kni) {
+tcp.c:57:    ip_list = &ws->dip_list;
+tcp.c:70:    ip_list = &ws->dip_list;
+tcp.c:80:    if (ws->ipv6) {
+tcp.c:99:        p = &ws->tcp_opt;
+tcp.c:103:        p = &ws->tcp_data;
+tcp.c:108:        p = &ws->tcp;
+tcp.c:127:    if (ws->vxlan) {
+tcp.c:129:        if (ws->ipv6) {
+tcp.c:134:            iph->check = csum_update_u16(csum_ip, 0, htons(ws->ip_id));
+tcp.c:144:    if (!ws->ipv6) {
+tcp.c:145:        iph->id = htons(ws->ip_id++);
+tcp.c:172:    if (ws->change_dip) {
+tcp.c:236:            if ((!ws->server) && (sk->keepalive != 0)) {
+tcp.c:241:        } else if (ws->server) {
+tcp.c:332:    if (ws->vxlan) {
+tcp.c:408:        socket_server_open(&ws->socket_table, sk, th);
+tcp.c:639:    if (ws->ack_delay.next >= TCP_ACK_DELAY_MAX) {
+tcp.c:643:    ws->ack_delay.sockets[ws->ack_delay.next] = sk;
+tcp.c:644:    ws->ack_delay.next++;
+tcp.c:718:            if (ws->http) {
+tcp.c:761:    sk = socket_server_lookup(&ws->socket_table, iph, th);
+tcp.c:763:        if (ws->kni && work_space_is_local_addr(ws, m)) {
+tcp.c:808:    sk = socket_client_lookup(&ws->socket_table, iph, th);
+tcp.c:810:        if (ws->kni && work_space_is_local_addr(ws, m)) {
+tcp.c:852:        if (ws->flood) {
+tcp.c:877:        sk = socket_client_open(&ws->socket_table, work_space_tsc(ws));
+tcp.c:883:        if (ws->flood) {
+tcp.c:958:        if (ws->vxlan) {
+tcp.c:959:            ws->run_loop = tcp_server_run_loop_vxlan;
+tcp.c:960:        } else if (ws->ipv6) {
+tcp.c:961:            ws->run_loop = tcp_server_run_loop_ipv6;
+tcp.c:963:            ws->run_loop = tcp_server_run_loop_ipv4;
+tcp.c:967:        if (ws->vxlan) {
+tcp.c:968:            ws->run_loop = tcp_client_run_loop_vxlan;
+tcp.c:969:        } else if (ws->ipv6) {
+tcp.c:970:            ws->run_loop = tcp_client_run_loop_ipv6;
+tcp.c:972:            ws->run_loop = tcp_client_run_loop_ipv4;
+tcp.c:976:    if (mbuf_cache_init_tcp(&ws->tcp, ws, "tcp", 0, NULL) < 0) {
+tcp.c:980:    if (mbuf_cache_init_tcp(&ws->tcp_opt, ws, "tcp_opt", ws->cfg->mss, NULL) < 0) {
+tcp.c:984:    if (mbuf_cache_init_tcp(&ws->tcp_data, ws, "tcp_data", 0, data) < 0) {
+tcp.c:994:        if (ws->kni && work_space_is_local_addr(ws, m)) {
+tcp.c:1008:    for (i = 0; i < ws->ack_delay.next; i++) {
+tcp.c:1009:        sk = ws->ack_delay.sockets[i];
+tcp.c:1018:    if (ws->ack_delay.next > 0) {
+tcp.c:1019:        ws->ack_delay.next = 0;
+lldp.c:128:    port = ws->port;
+lldp.c:158:    struct netif_port *port = ws->port;
+lldp.c:161:        ws->lldp = true;
+lldp.c:179:    port = ws->port;
+main.c:40:    port_clear(ws->port_id, ws->queue_id);
+main.c:47:    ws->start = 1;
+main.c:48:    ws->run_loop(ws);
+mbuf_cache.c:35:    if (ws->cfg->vxlan) {
+mbuf_cache.c:41:    pool->mbuf_pool = mbuf_pool_create(name, ws->port->id, ws->queue_id);
+mbuf_cache.c:137:    if (ws->cfg->server) {
+mbuf_cache.c:138:        dip = ws->port->client_ip_range.start;
+mbuf_cache.c:139:        sip = ws->port->server_ip_range.start;
+mbuf_cache.c:141:        sip = ws->port->client_ip_range.start;
+mbuf_cache.c:142:        dip = ws->port->server_ip_range.start;
+mbuf_cache.c:289:    mdata.ipv6 = ws->ipv6;
+mbuf_cache.c:290:    if (mbuf_data_push_l2(&mdata, ws->port) < 0) {
+mbuf_cache.c:325:    mdata.ipv6 = ws->ipv6;
+mbuf_cache.c:326:    if (mbuf_data_push_l2(&mdata, ws->port) < 0) {
+kni.c:291:    port = ws->port;
+kni.c:315:    if (port_is_bond4(ws->port) && mbuf_is_neigh(m)) {
+kni.c:331:    port = ws->port;
+loop.h:46:        (iph->daddr == ws->vtep_ip) &&
+loop.h:48:        (vxhs->vxh.vni == ws->vni)) {
+loop.h:71:        if ((eth->type == htons(ETHER_TYPE_IPv4)) && (!ws->ipv6)) {
+loop.h:74:        } else if ((eth->type == htons(ETHER_TYPE_IPv6)) && (ws->ipv6)) {
+loop.h:94:    if (ws->kni) {
+loop.h:144:    if (ws->kni) {
+loop.h:185:    if (ws->kni) {
+loop.h:195:    struct tick_time *tt = &ws->time;
+loop.h:199:    if (ws->kni) {
+loop.h:209:        if (ws->lldp) {
+loop.h:216:            if (ws->exit) {
+loop.h:231:    struct rte_mbuf **mbuf_rx = ws->mbuf_rx;
+loop.h:232:    uint16_t port = ws->port_id;
+loop.h:233:    uint16_t queue = ws->queue_id;
+loop.h:253:                tick_time_update(&ws->time);
+loop.h:268:    struct rte_mbuf **mbuf_rx = ws->mbuf_rx;
+loop.h:269:    uint16_t port = ws->port_id;
+loop.h:270:    uint16_t queue = ws->queue_id;
+loop.h:298:    tt = &ws->time;
+loop.h:306:        CPULOAD_ADD_TSC(&ws->load, tt->tsc, work);
+loop.h:326:    tt = &ws->time;
+loop.h:333:        CPULOAD_ADD_TSC(&ws->load, tt->tsc, work);
+loop.h:337:            if (ws->ack_delay.next) {
+work_space.h:43:#define work_space_tsc(ws) (ws->time.tsc)
+work_space.h:111:    if ((ws->time.second.count < (uint64_t)(g_config.duration)) && (ws->stop == false)) {
+work_space.h:123:    struct tx_queue *queue = &ws->tx_queue;
+work_space.h:159:    struct tx_queue *queue = &ws->tx_queue;
+work_space.h:161:    if (ws->vlan_id) {
+work_space.h:163:        mbuf->vlan_tci = ws->vlan_id;
+work_space.h:178:    if (ws->vxlan) {
+work_space.h:196:    struct tick_time *tt = &ws->time;
+work_space.h:197:    uint64_t launch_num = ws->client_launch.launch_num;
+work_space.h:200:    uint64_t cc = ws->client_launch.cc;
+work_space.h:202:    if (ws->client_launch.launch_next <= tt->tsc) {
+work_space.h:203:        ws->client_launch.launch_next += ws->client_launch.launch_interval;
+work_space.h:249:    return (daddr == ws->port->local_ip.ip);
+vxlan.c:29:    vxlan = ws->port->vxlan;
+vxlan.c:55:    port = ws->port;
+vxlan.c:67:    struct vxlan *vxlan = ws->port->vxlan;
+vxlan.c:69:    saddr = ip_range_get(&vxlan->vtep_local, ws->queue_id);
+vxlan.c:71:        daddr = ip_range_get(&vxlan->vtep_remote, ws->queue_id);
+vxlan.c:100:    uh->source = htons(VXLAN_SPORT + ws->id);
+vxlan.c:110:    vxlan = ws->port->vxlan;
+icmp6.c:58:    const struct eth_addr *smac = &(ws->port->local_mac);
+icmp6.c:84:    struct netif_port *port = ws->port;
+icmp6.c:93:    if (ws->kni) {
+icmp6.c:105:    const struct eth_addr *smac = &(ws->port->local_mac);
+icmp6.c:145:        if (ws->kni && work_space_is_local_addr(ws, m)) {
+icmp6.c:231:    if (!ws->ipv6) {
+icmp6.c:240:    icmp6_ns_eth_hdr_push(ws->port, m);
+icmp6.c:241:    icmp6_ns_ip6_hdr_push(ws->port, m);
+icmp6.c:242:    icmp6_ns_hdr_push(ws->port, m);
+icmp6.c:248:    if (icmp6_is_neigh(m) && port_is_bond4(ws->port)) {
+net_stats.h:163:                                        if (ws->tos && (ws->tos == iph->tos)) {         \
+rss.c:116:    if (ws->cfg->rss == RSS_L3L4) {
+rss.c:133:    port = ws->port;
+rss.c:134:    if (ws->cfg->server) {
+rss.c:144:    if (ws->cfg->rss == RSS_L3L4) {
+rss.c:157:    if (ws->ipv6) {
+rss.c:162:    hash = hash % ws->port->queue_num;
+rss.c:163:    if (hash == ws->queue_id) {
+udp.c:45:    ip_list = &ws->dip_list;
+udp.c:58:    ip_list = &ws->dip_list;
+udp.c:68:    if (ws->ipv6) {
+udp.c:82:    m = mbuf_cache_alloc(&ws->udp);
+udp.c:87:    if (ws->vxlan) {
+udp.c:89:        if (ws->ipv6) {
+udp.c:94:            iph->check = csum_update_u16(sk->csum_ip, 0, htons(ws->ip_id));
+udp.c:102:    if (!ws->ipv6) {
+udp.c:103:        iph->id = htons(ws->ip_id++);
+udp.c:116:    if (ws->change_dip) {
+udp.c:164:        if ((!ws->flood) && (sk->state == SK_SYN_SENT)) {
+udp.c:184:    sk = socket_client_lookup(&ws->socket_table, iph, th);
+udp.c:186:        if (ws->kni && work_space_is_local_addr(ws, m)) {
+udp.c:200:    } else if ((g_config.keepalive_request_interval == 0) && (!ws->stop)) {
+udp.c:218:    sk = socket_server_lookup(&ws->socket_table, iph, th);
+udp.c:220:        if (ws->kni && work_space_is_local_addr(ws, m)) {
+udp.c:244:        sk = socket_client_open(&ws->socket_table, work_space_tsc(ws));
+udp.c:258:        } else if (ws->flood) {
+udp.c:323:        if (ws->vxlan) {
+udp.c:324:            ws->run_loop = udp_server_run_loop_vxlan;
+udp.c:325:        } else if (ws->ipv6) {
+udp.c:326:            ws->run_loop = udp_server_run_loop_ipv6;
+udp.c:328:            ws->run_loop = udp_server_run_loop_ipv4;
+udp.c:331:        if (ws->vxlan) {
+udp.c:332:            ws->run_loop = udp_client_run_loop_vxlan;
+udp.c:333:        } else if (ws->ipv6) {
+udp.c:334:            ws->run_loop = udp_client_run_loop_ipv6;
+udp.c:336:            ws->run_loop = udp_client_run_loop_ipv4;
+udp.c:340:    return mbuf_cache_init_udp(&ws->udp, ws, "udp", g_udp_data);
+udp.c:346:        if (ws->kni && work_space_is_local_addr(ws, m)) {
+icmp.c:36:        if (ws->kni && work_space_is_local_addr(ws, m)) {
+net_stats.c:597:    s->cpusage = cpuload_cal_cpusage(&ws->load, ws->time.tsc);
+net_stats.c:603:    g_net_stats_all[ws->id] = &g_net_stats;
