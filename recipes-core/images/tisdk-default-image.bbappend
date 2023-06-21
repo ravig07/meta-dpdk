@@ -1,6 +1,6 @@
-PR_append = ".tisdk2"
+PR:append = ".tisdk2"
 
-IMAGE_INSTALL_append += "\
+IMAGE_INSTALL:append = "\
     dpdk \
     dpdk-module \
     dperf \
