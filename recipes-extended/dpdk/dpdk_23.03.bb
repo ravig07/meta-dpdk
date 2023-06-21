@@ -2,6 +2,7 @@ include dpdk.inc
 
 SRC_URI = "git://dpdk.org/git/dpdk;branch=${BRANCH};protocol=https \
            file://0001-meson.build-march-and-mcpu-already-passed-by-Yocto-21.11.patch \
+           file://0002-kni_library_enabled.patch \
 "
 
 BRANCH = "releases"
@@ -22,9 +23,6 @@ EXTRA_OEMESON = " -Denable_kmods=false \
                 -Dexamples=all \
 "
 
-COMPATIBLE_MACHINE = "null"
-COMPATIBLE_HOST:libc-musl:class-target = "null"
-COMPATIBLE_HOST:linux-gnux32 = "null"
 
 PACKAGECONFIG ??= " "
 PACKAGECONFIG[afxdp] = ",,libbpf xdp-tools"
