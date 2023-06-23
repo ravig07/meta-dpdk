@@ -5,10 +5,6 @@ SRC_URI = "file://socket.c file://config.c file://client.c file://mbuf_cache.c f
 
 S = "${WORKDIR}"
 
-COMPATIBLE_MACHINE = "qemux86-64"
-COMPATIBLE_HOST:libc-musl:class-target = "null"
-COMPATIBLE_HOST:linux-gnux32 = "null"
-
 DEPENDS = "dpdk dpdk-module"
 
 inherit pkgconfig
